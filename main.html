@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src= "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"> </script> 
+    <script src= "https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"> </script> 
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300&display=swap');
+         :root {
+            --progress-bar-width: 100px;
+            --progress-bar-height: 100px;
+            --font-size: 1rem;
+        }
+        *{
+            margin:0;
+            padding :0;
+            box-sizing: border-box;
+        }
+        html,body{
+            height:auto;
+            width:100vw;
+            background-color: #fff;
+            font-family: 'Poppins', sans-serif;
+
+        }
+        .container{
+            display:grid;
+            gap: 0.6em;
+            margin:0 0.6rem 0 0.6rem;
+            grid-template-columns: 4rem 23rem auto 23rem;
+        }
+        .icon {
+            height:35px;
+            width:35px;
+            font-weight: bold;
+            border: 1px solid f0f0f0;
+            padding: 0.4rem 0.4rem 0.4rem 0.4rem;
+            border-radius: 10px;
+            margin: 0rem;
+            
+        }
+        .icon a{
+            color:rgb(157, 157, 157);
+        }
+        .icon a:hover{
+            color:white;
+        }
+        .icon:hover{
+            scale: 1.2;
+            border: 1px solid f0f0f0;
+            padding: 0.4rem 0.4rem 0.4rem 0.4rem;
+            border-radius: 10px;
+            margin: 0rem;
+            background-color: #492BE4;
+        }
+        .cont1{
+            height:100vh;
+            background-color:#fff;
+        }
+        .cont2{
+            display: flex;
+            flex-direction: column;
+            height:100vh;
+        }
+        .cont3{
+            height:100%;
+            margin-right:3rem;
+        }
+        .cont4{
+            height:100vh;
+        }
+        .navone{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin:1rem 0 6rem 0;
+            gap: 0.7em;
+        }
+        .navtwo{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin:0;
+            gap: 0.7em;
+        }
+        .navthree{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin:14rem 0 0 0;
+            gap: 0.7em;
+        }
+        #search2{
+            display: none;
+        }
+        .info1 {
+            display: flex;
+            gap:1rem;
+            padding:2rem 4rem 0rem 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+        .moneyinfo{
+            display:flex;
+            flex-direction: column;
+            /* gap:1rem; */
+            row-gap: 1rem;
+            padding:0.6rem;
+            /* justify-content:; */
+            align-items:flex-start;
+            margin-left: 3rem;
+            margin-bottom: 3rem;
+        }
+        div button {
+            height:40px;
+            width:140px;
+            background-color: #492BE4;
+            color: #fff; /* Set text color to white or another contrasting color */
+            border: none;
+            border-radius: 10px; /* Optional: Add rounded corners */
+            cursor: pointer;
+            font-size: 12px; /* Optional: Adjust font size */
+            
+        }
+        div button:hover{
+            height:40px;
+            width:140px;
+            background-color: #2a187f;
+            color: #fff; /* Set text color to white or another contrasting color */
+            border: none;
+            border-radius: 10px; /* Optional: Add rounded corners */
+            cursor: pointer;
+            font-size: 12px; /* Optional: Adjust font size */
+        }
+        .lighttext{
+            font-size:10px;
+            color:grey;
+        }
+        .boldtext{
+            color: black;
+            font-weight: bolder;
+        }
+        .smallbold{
+            font-size: small;
+            color:black;
+            font-weight: 800;
+        }
+        .contributions{
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.2rem;
+        }
+        .moneyinfo2{
+            display:flex ;
+            flex-direction: column;
+            row-gap: 1rem;
+        }
+        .transaction{
+            display:flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            padding:0.6rem;
+            justify-content:center;
+            align-items:flex-start;
+            margin-left: 3rem;
+        }
+        .retirement1{
+            display:flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            width:100%;
+            margin-top: 3rem;
+        }
+        .rangeinp{
+            color: #492BE4;
+            background-color: gray;
+            margin: 0.1rem;
+            min-width:15rem;
+            height:3px;
+        }
+        .retire1{
+            width:100%;
+            display: flex;
+            flex-direction:column;
+            justify-content: center;
+            row-gap: 0.6rem;
+            
+        }
+        .retirement2{
+            display:flex;
+            flex-direction: column;
+            row-gap: 0rem;
+            margin-top: 3rem;
+        }
+        .retire2{
+            display:flex;
+            flex-direction: column;
+            row-gap: 1rem;
+            width:19rem;
+            padding-right:2rem;
+        }
+        .maincont4{
+            width:auto;
+            margin:0  2.5rem ;
+        }
+        .retirement3{
+            border-left:2px solid #492BE4;
+            padding-left:2rem;
+            margin-top: 3rem;
+        }
+        .maincont3{
+            margin:1.5rem 0 0 0;
+        }
+        .chart2{
+            display:flex;
+            column-gap: 3rem;       
+            justify-content: space-between;
+            margin:0.7rem 3rem 2rem 0;
+        }
+        .chart2info{
+            border-bottom: 2px solid #492BE4;
+            min-width:33%;
+        }
+        .dropdown{
+            border:none;
+        }
+        .input1{
+            display:flex;
+            padding: 0.5rem 0;
+            gap: 0.5rem;
+        }
+        .circular-progress {
+        width: var(--progress-bar-width);
+        height: var(--progress-bar-height);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .inner-circle {
+        position: absolute;
+        width: calc(var(--progress-bar-width) - 20px);
+        height: calc(var(--progress-bar-height) - 20px);
+        border-radius: 50%;
+        background-color: lightgrey;
+        }
+        .percentage {
+        position: relative;
+        font-size: var(--font-size);
+        color: rgb(0, 0, 0, 0.8);
+        }
+        .threetiles{
+            /* background-color: aqua; */
+            display:flex;
+            max-width:100%;
+            margin:1.5rem 0;
+            gap:2rem;
+            /* margin-right: 3rem; */
+            
+        }
+        .twotiles{
+            background-color: cadetblue;
+            display:flex;
+            justify-content: space-evenly;
+
+        }
+        @media (max-width:500px){
+            body{
+                height:100%;
+                width:100%;
+            }
+            .container{
+                width:110%;
+                gap:0;
+                margin:0;
+                padding:0;
+            }
+            .cont1 {
+                height:3rem;
+                background-color:white;
+                border:1px solid rgb(250, 250, 250);
+                border-top-left-radius: 16px;
+                border-top-right-radius: 16px;
+                position:fixed;
+                bottom: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                margin-bottom: 2px;
+            }
+            .icon{
+                height:2.5rem;
+                width:2.5rem;
+            }
+            .navone{
+                display:none;
+            }
+            #search2{
+                display: block;
+            }
+            .navtwo{
+                display: flex;
+                flex-direction: row;
+                width:100%;
+                justify-content: space-around;
+            }
+            .navthree {
+              display:none;
+            }
+            :root {
+                --progress-bar-width: 80px;
+                --progress-bar-height: 80px;
+                --font-size: 1rem;
+            }
+            .container{
+                display:flex;
+                flex-direction: column;
+                width:100%;
+                height:100%;
+                gap:0;
+                margin:0;
+                margin-top: 2rem;
+            }
+            .crightpart{
+                margin:2rem 0 0 1rem;
+            }
+            .cont2{
+                display: flex;
+                height:100%;
+            }
+            .info1{
+                justify-content: flex-start;
+
+                margin-left: 1rem;
+                padding:0;
+                height:auto;
+            }
+            .today{
+                padding: 0;
+                margin:0;
+            }
+            .moneyinfo{
+                padding-left:2rem;
+                height:auto;
+                display: flex;
+                width:100%;
+                margin-left:auto;
+            }
+            .moneyinfo2{
+                display: flex;
+            }
+            .twomoney{
+                display:flex;
+                flex-direction: row;
+                gap:5rem;
+            }
+            .iwantto{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width:100%;
+                height:4rem;
+            }
+            .iwantto button{
+                min-width:90%;
+                min-height:65%;
+
+            }
+            .transaction{
+                padding-left: 2rem;
+                margin:0;
+                display: flex;
+
+            }
+            .trans1{
+                margin-left: 1rem;
+
+            }
+            .cont3{
+                /* height:100%; */
+                height:min-content;
+                margin-right:0rem;
+            }
+            .cont4{
+                display: flex;
+                justify-content: center;
+                padding-left: 1rem;
+            }
+            .chart2{
+                flex-direction: column;
+            }
+            
+
+            .threetiles{
+                margin-left:0;
+                column-gap:3rem;
+                justify-content: left;
+                flex-wrap: wrap;
+            }
+            #tile1{
+                min-width: 80%;
+            }
+            .chart2info{
+                margin:0 0 0 0rem;
+            }
+            .third{
+                padding:1rem;
+            }
+            .cgraph2{
+                flex-direction: column;
+            }
+            .maincont4{
+                width:100%;
+                flex-direction: column;
+            }
+            .retire1{
+                margin-left: 1rem;
+            }
+            .retire2{
+                margin-left: 1rem;
+            }
+            .retirement3{
+                display: none;
+            }
+        
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cont1">
+            <div class="navone">
+                <div class="logo icon">
+                    <a href="" style="text-decoration: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-feather" viewBox="0 0 16 16">
+                            <path
+                                 d="M15.807.531c-.174-.177-.41-.289-.64-.363a3.8 3.8 0 0 0-.833-.15c-.62-.049-1.394 0-2.252.175C10.365.545 8.264 1.415 6.315 3.1S3.147 6.824 2.557 8.523c-.294.847-.44 1.634-.429 2.268.005.316.05.62.154.88q.025.061.056.122A68 68 0 0 0 .08 15.198a.53.53 0 0 0 .157.72.504.504 0 0 0 .705-.16 68 68 0 0 1 2.158-3.26c.285.141.616.195.958.182.513-.02 1.098-.188 1.723-.49 1.25-.605 2.744-1.787 4.303-3.642l1.518-1.55a.53.53 0 0 0 0-.739l-.729-.744 1.311.209a.5.5 0 0 0 .443-.15l.663-.684c.663-.68 1.292-1.325 1.763-1.892.314-.378.585-.752.754-1.107.163-.345.278-.773.112-1.188a.5.5 0 0 0-.112-.172M3.733 11.62C5.385 9.374 7.24 7.215 9.309 5.394l1.21 1.234-1.171 1.196-.027.03c-1.5 1.789-2.891 2.867-3.977 3.393-.544.263-.99.378-1.324.39a1.3 1.3 0 0 1-.287-.018Zm6.769-7.22c1.31-1.028 2.7-1.914 4.172-2.6a7 7 0 0 1-.4.523c-.442.533-1.028 1.134-1.681 1.804l-.51.524zm3.346-3.357C9.594 3.147 6.045 6.8 3.149 10.678c.007-.464.121-1.086.37-1.806.533-1.535 1.65-3.415 3.455-4.976 1.807-1.561 3.746-2.36 5.31-2.68a8 8 0 0 1 1.564-.173" />
+                         </svg>
+                    </a>
+                </div>
+                <div class="search icon">
+                    <a href="" style="text-decoration: none; "><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="navtwo" >
+                <div class="home icon" style="color:#e0e0e0 ; background-color: #492BE4;">
+                    <a href="" style="text-decoration: none ;"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor"
+                        class="bi bi-house-door" viewBox="0 0 16 16">
+                        <path
+                            d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z" />
+                    </svg></a>
+                </div>
+                <div class="menu icon">
+                    <a href="" style="text-decoration: none; ;"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-newspaper" viewBox="0 0 16 16">
+                        <path
+                            d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5z" />
+                        <path
+                            d="M2 3h10v2H2zm0 3h4v3H2zm0 4h4v1H2zm0 2h4v1H2zm5-6h2v1H7zm3 0h2v1h-2zM7 8h2v1H7zm3 0h2v1h-2zm-3 2h2v1H7zm3 0h2v1h-2zm-3 2h2v1H7zm3 0h2v1h-2z" />
+                    </svg></a>
+                </div>
+                <div class="cardicon icon" >
+                    <a href="" style="text-decoration: none;  ;"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-card-list" viewBox="0 0 16 16">
+                        <path
+                            d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z" />
+                        <path
+                            d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
+                    </svg></a>
+                </div>
+                <div class="person icon">
+                    <a href="" style="text-decoration: none; ;"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg></a>
+                </div>
+                <div id="search2" class="search icon">
+                    <a href="" style="text-decoration: none; color: rgb(157, 157, 157);"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="navthree">
+                <div class="bell icon">
+                    <a href="" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                        class="bi bi-bell" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6" />
+                    </svg></a>
+                </div>
+                <div class="logout icon">
+                    <a href="" style="text-decoration: none;"><svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor"
+                        class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z" />
+                        <path fill-rule="evenodd"
+                            d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                    </svg></a>
+                </div>
+            </div>
+        </div>
+        <div class="cont2">
+            <div class="info1">
+                <div class="image">
+                    <img src="image.webp" alt="profile" style="height: 100px; width:100px ;border: 1px solid; border-radius: 50%;">
+                </div>
+                <div class="name">
+                    <h1>
+                        Hi , Mike
+                    </h1>
+                    <h5>
+                        welcome back
+                    </h5>
+                </div>
+            </div>
+            <div class="moneyinfo">
+                <div class="today">
+                    <h3>Today</h3>
+                    <h1>$19,892</h1>
+                    <h6 class="lighttext">Account Balance</h6>
+                </div>
+                <div class="moneyinfo2">
+                    <div class="twomoney">
+                        <div class="contributions">
+                            <p class="boldtext">$4,000</p>
+                            <h6 class="lighttext" >Year-to-Date</h6>
+                        </div>
+                        <div class="contributions">
+                            <h4 class="boldtext">$1,892</h4>
+                            <h6 class="lighttext">Total Intrest</h6>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="iwantto">
+                    <button type="submit">I Want to</button>
+                </div>
+            </div>
+
+            <div class="transaction">
+                <div class="transtext">
+                    <p class="boldtext">Recent transaction</p>
+                </div>
+                <div class="trans1">
+                    <div>
+                        <p class="lighttext">2020-08-07</p>
+                        <p class="smallbold">Withdrawl transfer to Bank-XXX11</p>
+                        <hr>
+                    </div>
+                </div>                    
+                <div class="trans1">
+                    <div>
+                        <p class="lighttext">2020-08-07</p>
+                        <p class="smallbold">Withdrawl transfer to Bank-XXX11</p>
+                        <hr>
+                    </div>
+                </div>                    
+                <div class="trans1">
+                    <div>
+                        <p class="lighttext">2020-08-07</p>
+                        <p class="smallbold">Withdrawl transfer to Bank-XXX11</p>
+                        <hr>
+                    </div>
+                </div>                    
+
+            </div>
+        </div>
+        <div class="cont3">
+            <div class="third">
+                <div class="maincont3">
+                    <div class="chart1">
+                        <p style="color:#492BE4" class="smallbold">Retirement Income</p>
+                        <h2>Starting Year 2056</h2>
+                    </div>
+                    <div class="threetiles">
+                        <div id ="tile1" class="mobview2 chart2info">
+                            <h1>$300,000</h1>
+                            <h6 class="lighttext">My Goal</h6>
+                        </div>
+                        <div class="mobview2 chart2info">
+                            <h1>59%</h1>
+                            <h6 class="lighttext">Goal Achieved</h6>
+                        </div>
+                        <div class="mobview2 chart2info">
+                            <h1>$300</h1>
+                            <h6 class="lighttext">Est. Monthly Income</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="bchart">
+                    <div class="bchartheading boldtext">
+                        <p>Contributions Overtime</p>
+                    </div>
+                    <div >
+                        <canvas id="stackedChartID" style="height:270px; width: 100%;"></canvas>
+                    </div>
+                </div>
+            
+                <div class="circArea" >
+                    <div class="cgraph1 " style="padding: 1rem 0;">
+                        <p class="boldtext">How do I comapare to my peers ?</p>
+                        <p class="lighttext">These numbers represent current goal achievement.</p>
+                    </div>
+                    <div class="cgraph2" style="display: flex; justify-content: space-between;">
+                        <div class="cleftpart">
+                            <div class="input1">
+                                <p class="smallbold">Age:</p>
+                                <select class="dropdown">
+                                    <option>Under 30</option>
+                                    <option>Under 40</option>
+                                    <option>Under 50</option>
+                                </select>
+                            </div>
+                            <div><p><hr></p></div>
+                            <div class="input1">
+                                <p class="smallbold">Salary:</p>
+                                <select class="dropdown">
+                                    <option>$20 - $30</option>
+                                    <option>$30 - $40</option>
+                                    <option>$40 - $50</option>
+                                </select>
+                            </div>
+                            <div><p><hr></p></div>
+                            <div class="input1">
+                                <p class="smallbold">Gender:</p>
+                                <select  class="dropdown">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="crightpart" style="display:flex; gap:2rem">
+                            <div style="display: flex;flex-direction: column; align-items: center;">
+                                <div class="circular-progress" data-inner-circle-color="white" data-percentage="78" data-progress-color="#27D6A5" data-bg-color="#DEF6EF">
+                                    <div class="inner-circle"></div>
+                                    <p class="smallbold percentage">0%</p>
+                                </div>
+                                <div>
+                                    <span class="smallbold">Average</span>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: column; align-items: center;">
+                                <div class="circular-progress" data-inner-circle-color="white" data-percentage="95" data-progress-color="#27D6A5" data-bg-color="#DEF6EF">
+                                    <div class="inner-circle"></div>
+                                    <p class="smallbold percentage">0%</p>
+                                </div>
+                                <div>
+                                    <span class="smallbold">Top</span>
+                                </div>
+                            </div>
+                            <div style="display: flex;flex-direction: column; align-items: center;">
+                                <div class="circular-progress" data-inner-circle-color="white" data-percentage="59" data-progress-color="#27D6A5" data-bg-color="#DEF6EF">
+                                    <div class="inner-circle"></div>
+                                    <p class="smallbold percentage">0%</p>
+                                </div> 
+                                <div>
+                                    <span class="smallbold">Me</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cont4">
+            <div class="maincont4">
+                <div class="retirement1">
+                    <div style="margin-bottom: 1rem;"><p class="boldtext">Retirement Strategy</p></div>
+                    <div class="retire1">
+                        <p class="smallbold">Employee Contribution</p>
+                        <div>
+                            <input class="rangeinp" type="range" id="contribution" name="contribution" min="0" max="100" onchange="updatecontri()"/>
+                            <label class="smallbold" for="contribution" id="displaycontri">50%</label>
+                        </div>
+                        <p class="smallbold">Retirement Age</p>
+                        <div>
+                            <input class="rangeinp" type="range" id="age" name="age" min="0" max="80" onchange="updateage()"/>
+                            <label class="smallbold" for="age" id="displayage">40</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="retirement2">
+                    <div class="retire2">
+                        <div style="color: silver;"><p><hr></p></div>
+                        <div style="display:flex; justify-content: space-between;">
+                            <p class="smallbold">Employer Contribution</p>
+                            <p class="smallbold" >8.4%</p>
+                        </div>
+                        <div  style="display:flex; justify-content: space-between;">
+                            <p class="smallbold">Intrest Rate</p>
+                            <p class="smallbold">5%</p>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <button type="submit" style=" width: 14rem;">Update</button>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <a href="#" class="smallbold" style="align-items: center;text-decoration: none; color: #492BE4;">View Help Docs ></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="retirement3">
+                    <div>
+                        <div>
+                            <p style="font-size: 14px;">Are you considering a <br><span class="smallbold"></span><b>House Advance?</b></span></p>
+                        </div>
+                        <div>
+                            <p class="lighttext">Limited time reduced intrest</p>
+                        </div>
+                        <div>
+                            <a href="#" class="smallbold" style="text-decoration: none; color: #492BE4;">Learn More ></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function updatecontri() {
+            var inputElement = document.getElementById('contribution');
+            var displayElement = document.getElementById('displaycontri');
+
+            displayElement.textContent = inputElement.value + "%";
+        }
+        function updateage() {
+            var inputElement = document.getElementById('age');
+            var displayElement = document.getElementById('displayage');
+
+            displayElement.textContent = inputElement.value ;
+        }
+    </script>
+    <script> 
+  
+        var myContext = document.getElementById( 
+            "stackedChartID").getContext('2d'); 
+        var myChart = new Chart(myContext, { 
+            type: 'bar', 
+            data:
+            { 
+                labels: ["20","", "25","", "30", "", 
+                    "35","", "40","", "60" ,"", "65"], 
+                datasets: [
+                    { 
+                    label: 'Employer : $73,500', 
+                    backgroundColor: "#492BE4", 
+                    data: [10,20,25,30,35,40,45,50,60,70,80,90,100], 
+                }, { 
+                    label: 'Employee : $52,500', 
+                    backgroundColor: "#525CEB", 
+                    data: [10,20,25,30,35,40,45,50,60,70,80,90,100], 
+                }, { 
+                    label: 'Total Intrest : $244,313', 
+                    backgroundColor: "#85afff", 
+                    data: [10,20,25,30,35,40,45,50,60,70,80,90,100], 
+                }], 
+            }, 
+            options: { 
+                layout:{
+                    padding:{
+                        top:-20,
+                    },
+                },
+                plugins: { 
+                    
+                    title: { 
+                        display: true, 
+                    }, 
+                }, 
+                scales: { 
+                    grid:false,
+                    x: { 
+                        stacked: true, 
+                    }, 
+                    y: { 
+                        stacked: true,
+                        min: 0,
+                        max: 300,
+                        ticks: {
+                            callback: function(value, index, ticks) {
+                                if(index%2 == 0)
+                                    return '$' + value;
+                            },
+                        }
+                    } 
+                } 
+            } 
+        }); 
+    </script> 
+    <script>
+        const circularProgress = document.querySelectorAll(".circular-progress");
+
+        Array.from(circularProgress).forEach((progressBar) => {
+                const progressValue = progressBar.querySelector(".percentage");
+                const innerCircle = progressBar.querySelector(".inner-circle");
+                let startValue = 0,
+                    endValue = Number(progressBar.getAttribute("data-percentage")),
+                    speed = 10,
+                    progressColor = progressBar.getAttribute("data-progress-color");
+
+                const progress = setInterval(() => {
+                    startValue++;
+                    progressValue.textContent = `${startValue}%`;
+                    progressValue.style.color = `black`;
+                    
+
+                    innerCircle.style.backgroundColor = `${progressBar.getAttribute("data-inner-circle-color")}`;
+
+                    progressBar.style.background = `conic-gradient(${progressColor} ${startValue * 3.6}deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+                    if (startValue === endValue) {
+                        clearInterval(progress);
+                    }
+            },speed);
+        });
+    </script>
+</body>
+</html>
